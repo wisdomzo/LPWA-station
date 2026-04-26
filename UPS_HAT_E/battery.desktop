@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=battery
 Comment=My battery
-Exec=/home/Alpha/Documents/station/UPS_HAT_E/battery.sh
-Icon=/home/Alpha/Documents/station/UPS_HAT_E/images/battery.1.png
+Exec=/home/Beta/Documents/LPWA-station/UPS_HAT_E/battery.sh
+Icon=/home/Beta/Documents/LPWA-station/UPS_HAT_E/images/battery.1.png
 Terminal=false
 MultipleArgs=false
 Type=Application
