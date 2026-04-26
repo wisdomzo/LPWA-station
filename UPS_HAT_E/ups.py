@@ -70,3 +70,6 @@ def get_ups_info():
         break
     
     return None
+
+if __name__ == "__main__":
+    get_ups_info()
