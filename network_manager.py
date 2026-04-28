@@ -84,7 +84,7 @@ class MeshNetworkManager:
 
         if not os.path.exists(LOCAL_CSV):
             with open(LOCAL_CSV, 'w', encoding='utf-8') as f:
-                f.write("Source,Delay,Timestamp,Latitude,Longitude,Altitude,Speed,rssi,Data\n")
+                f.write("Source,Timestamp,Latitude,Longitude,Altitude,Speed,rssi,Data\n")
 
         while True:
             self.__monitor_remote_logs(driot_IP, driot_USER, driot_PW, REMOTE_LOG_DIR, LOCAL_CSV)
@@ -108,7 +108,6 @@ class MeshNetworkManager:
             current_file = "unknown" # 用于记录当前正在读取的文件名
 
             for line in stdout:
-                t_detect = time.perf_counter()
 
                 clean_line = line.strip()
                 if not clean_line:
@@ -143,16 +142,13 @@ class MeshNetworkManager:
                     print(f"获取GNSS信息时发生错误: {e}")
                     lat, lon, altitude, speed, timestamp = "N/A", "N/A", "N/A", "N/A", "N/A"
 
-                t_written = time.perf_counter()
-                delay = t_written - t_detect
-
                 # --- 修改点 3：将文件名（current_file）作为第一列写入 ---
-                output_row = f"{current_file},{delay},{timestamp},{lat},{lon},{altitude},{speed},{rssi_val},{clean_line}\n"
+                output_row = f"{current_file},{timestamp},{lat},{lon},{altitude},{speed},{rssi_val},{clean_line}\n"
                 
                 with open(LOCAL_CSV, 'a', encoding='utf-8') as f:
                     f.write(output_row)
                 
-                print(f"[{current_file}] 写入成功: {delay}, {timestamp}, {lat}, {lon}, {altitude}, {speed}, {rssi_val} ...")
+                print(f"[{current_file}] 写入成功: {timestamp}, {lat}, {lon}, {altitude}, {speed}, {rssi_val} ...")
 
         except Exception as e:
             print(f"发生错误: {e}")
